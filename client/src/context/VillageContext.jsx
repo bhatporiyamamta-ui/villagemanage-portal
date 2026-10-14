@@ -47,9 +47,9 @@ export function VillageProvider({ children }) {
   const [userRole, setUserRole] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.ROLE);
-      return saved ? saved : 'admin';
+      return saved === 'admin' ? 'admin' : 'viewer';
     } catch {
-      return 'admin';
+      return 'viewer';
     }
   });
 
@@ -94,7 +94,8 @@ export function VillageProvider({ children }) {
           !parsed.villageName || 
           parsed.villageName.includes('Sundarpur') || 
           parsed.villageName.includes('Bhndari') || 
-          !parsed.pramukh
+          !parsed.pramukh ||
+          parsed.pramukh === 'Rameshbhai Bhandari'
         ) {
           return initialVillageMeta;
         }
@@ -387,17 +388,23 @@ export function VillageProvider({ children }) {
 
   const switchToViewer = () => {
     setUserRole('viewer');
+    try {
+      localStorage.setItem(STORAGE_KEYS.ROLE, 'viewer');
+    } catch (e) {}
     showToast('Switched to Public Viewer Mode (Read-Only).', 'info');
   };
 
-  const loginAsAdmin = (pin) => {
-    if (pin === '1234' || pin === 'admin' || !pin) {
+  const loginAsAdmin = (password) => {
+    if (password === '19760606') {
       setUserRole('admin');
+      try {
+        localStorage.setItem(STORAGE_KEYS.ROLE, 'admin');
+      } catch (e) {}
       setAdminLoginModalOpen(false);
-      showToast('Admin full management unlocked!', 'success');
+      showToast('Administrator access unlocked.', 'success');
       return true;
     } else {
-      showToast('Incorrect staff PIN code. (Demo PIN: 1234)', 'error');
+      showToast('Incorrect password. Access denied.', 'error');
       return false;
     }
   };
@@ -720,7 +727,8 @@ export function VillageProvider({ children }) {
   // Helpers to open modals with context
   const openAddVillagerModal = (householdId = '') => {
     if (isViewer) {
-      showToast('Registration is restricted to Panchayat Admin staff.', 'info');
+      showToast('Administrator login required to register citizens.', 'info');
+      setAdminLoginModalOpen(true);
       return;
     }
     setEditingVillager(null);
@@ -730,7 +738,8 @@ export function VillageProvider({ children }) {
 
   const openEditVillagerModal = (villager) => {
     if (isViewer) {
-      showToast('Editing is restricted to Panchayat Admin staff.', 'info');
+      showToast('Administrator login required to edit citizen records.', 'info');
+      setAdminLoginModalOpen(true);
       return;
     }
     setEditingVillager(villager);
@@ -740,7 +749,8 @@ export function VillageProvider({ children }) {
 
   const openAddHouseholdModal = () => {
     if (isViewer) {
-      showToast('Household creation is restricted to Panchayat Admin staff.', 'info');
+      showToast('Administrator login required to add households.', 'info');
+      setAdminLoginModalOpen(true);
       return;
     }
     setEditingHousehold(null);
@@ -749,7 +759,8 @@ export function VillageProvider({ children }) {
 
   const openEditHouseholdModal = (household) => {
     if (isViewer) {
-      showToast('Editing household is restricted to Panchayat Admin staff.', 'info');
+      showToast('Administrator login required to edit households.', 'info');
+      setAdminLoginModalOpen(true);
       return;
     }
     setEditingHousehold(household);

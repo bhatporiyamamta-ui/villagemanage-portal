@@ -101,22 +101,22 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-village-border shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-17 sm:h-18 py-2 gap-3">
+        <div className="flex items-center justify-between h-15 sm:h-18 py-2 gap-2 sm:gap-3">
           
           {/* Logo & Panchayat Title */}
           <Link 
             to="/dashboard"
-            className="flex items-center space-x-3 cursor-pointer shrink-0" 
+            className="flex items-center space-x-2 sm:space-x-3 cursor-pointer min-w-0 flex-1" 
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-village-primary-dark via-village-primary to-village-accent flex items-center justify-center text-white shadow-soft shrink-0">
-              <Building2 className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-village-primary-dark via-village-primary to-village-accent flex items-center justify-center text-white shadow-soft shrink-0">
+              <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
-            <div className="min-w-0">
-              <div className="flex items-center space-x-2">
-                <span className="font-extrabold text-base sm:text-lg text-village-text tracking-tight whitespace-nowrap">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center space-x-1.5">
+                <span className="font-extrabold text-xs sm:text-base lg:text-lg text-village-text tracking-tight truncate block">
                   {villageMeta.villageName}
                 </span>
-                <span className={`hidden sm:inline-block px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded-md border shrink-0 ${
+                <span className={`hidden sm:inline-block px-1.5 py-0.5 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider rounded-md border shrink-0 ${
                   isAdmin 
                     ? 'bg-village-secondary-light text-village-primary-darker border-village-secondary' 
                     : 'bg-village-card text-village-muted border-village-border'
@@ -124,25 +124,25 @@ export default function Header() {
                   {isAdmin ? 'Admin' : 'Public'}
                 </span>
                 {isAdmin && isCloudConnected && (
-                  <span className="hidden md:inline-flex items-center space-x-1 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded-md border bg-emerald-50 text-emerald-800 border-emerald-300 shrink-0">
+                  <span className="hidden lg:inline-flex items-center space-x-1 px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-md border bg-emerald-50 text-emerald-800 border-emerald-300 shrink-0">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>Supabase Live</span>
+                    <span>Live</span>
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-village-muted whitespace-nowrap hidden sm:block">
-                Taluka: {villageMeta.block} • Dist: {villageMeta.district} ({villageMeta.state})
+              <p className="text-[10px] sm:text-[11px] text-village-muted truncate hidden xs:block">
+                Taluka: {villageMeta.block} • Dist: {villageMeta.district}
               </p>
             </div>
           </Link>
 
           {/* Right Action Bar + Hamburger Menu Toggle */}
-          <div className="flex items-center space-x-2 shrink-0">
+          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
             
             {/* Active Section Breadcrumb Badge (Shows where user is) */}
             <div 
               onClick={() => setMenuOpen(!menuOpen)}
-              className="hidden md:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-village-card border border-village-border text-village-text hover:bg-village-secondary-light/60 transition-colors text-xs font-semibold cursor-pointer"
+              className="hidden lg:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-village-card border border-village-border text-village-text hover:bg-village-secondary-light/60 transition-colors text-xs font-semibold cursor-pointer"
               title="Click to open menu and switch section"
             >
               <Compass className="w-3.5 h-3.5 text-village-primary" />
@@ -154,7 +154,7 @@ export default function Header() {
             {/* Quick Action: Emergency Blood Donors */}
             <Link
               to="/donors"
-              className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all whitespace-nowrap cursor-pointer shadow-2xs"
+              className="flex items-center space-x-1 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition-all whitespace-nowrap cursor-pointer shadow-2xs"
               title="Emergency Blood Donors Finder (/donors)"
             >
               <HeartPulse className="w-3.5 h-3.5 text-red-500 animate-pulse" />
@@ -165,11 +165,11 @@ export default function Header() {
             {isAdmin && (
               <button
                 onClick={() => openAddVillagerModal()}
-                className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-village-primary hover:bg-village-primary-dark text-white font-bold text-xs sm:text-sm shadow-soft transition-all duration-150 active:scale-95 whitespace-nowrap cursor-pointer"
+                className="hidden md:flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-village-primary hover:bg-village-primary-dark text-white font-bold text-xs sm:text-sm shadow-soft transition-all duration-150 active:scale-95 whitespace-nowrap cursor-pointer"
                 title="Register New Villager"
               >
                 <UserPlus className="w-4 h-4" />
-                <span className="hidden sm:inline">+ Villager</span>
+                <span>+ Villager</span>
               </button>
             )}
 
@@ -177,10 +177,10 @@ export default function Header() {
             {isViewer && (
               <button
                 onClick={() => setAdminLoginModalOpen(true)}
-                className="hidden sm:flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-village-primary hover:bg-village-primary-dark text-white font-bold text-xs shadow-soft transition-all duration-150 whitespace-nowrap cursor-pointer"
+                className="flex items-center space-x-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-village-primary hover:bg-village-primary-dark text-white font-bold text-xs shadow-soft transition-all duration-150 whitespace-nowrap cursor-pointer"
               >
                 <Lock className="w-3.5 h-3.5" />
-                <span>Staff Login</span>
+                <span className="hidden xs:inline">Staff Login</span>
               </button>
             )}
 
@@ -260,7 +260,7 @@ export default function Header() {
             {/* HAMBURGER MENU TOGGLE BUTTON (Prominent on all screens) */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`flex items-center space-x-2 px-3 sm:px-3.5 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${
+              className={`flex items-center space-x-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all duration-200 cursor-pointer ${
                 menuOpen
                   ? 'bg-village-primary text-white border-village-primary shadow-soft font-bold'
                   : 'bg-white hover:bg-village-secondary-light/70 text-village-text border-village-border font-bold shadow-2xs'
@@ -268,7 +268,7 @@ export default function Header() {
               aria-label="Toggle navigation menu"
             >
               {menuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
-              <span className="text-xs sm:text-sm font-bold">
+              <span className="hidden xs:inline text-xs sm:text-sm font-bold">
                 {menuOpen ? 'Close' : 'Menu'}
               </span>
             </button>

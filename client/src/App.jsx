@@ -21,12 +21,12 @@ function AppContent() {
   const { activeTab, supabaseModalOpen, setSupabaseModalOpen } = useVillage();
 
   return (
-    <div className="min-h-screen bg-village-bg text-village-text flex flex-col font-sans selection:bg-village-secondary selection:text-village-text">
+    <div className="min-h-screen w-full bg-village-bg text-village-text flex flex-col font-sans selection:bg-village-secondary selection:text-village-text overflow-x-hidden">
       {/* Top Navbar */}
       <Header />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 overflow-x-hidden">
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'villagers' && <VillagersDirectory />}
         {activeTab === 'households' && <FamilyManagement />}

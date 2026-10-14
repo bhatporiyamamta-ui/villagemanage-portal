@@ -5,10 +5,15 @@ export const initialVillageMeta = {
   district: "Surat",
   state: "Gujarat",
   pincode: "394510",
-  pramukh: "Rameshbhai Bhandari",
+  pramukh: "Maheshbhai Bhatporiya",
   upPramukh: "Dineshbhai Bhandari",
-  mantri: "Sureshbhai Bhandari",
-  treasurer: "Pravinbhai Bhandari",
+  mantri: "Vithalbhai Bhandari",
+  treasurer: "Hiteshbhai K Bhandari, Hiteshbhai C Bhandari, Dharmeshbhai k Bhandari",
+  treasurers: [
+    "Hiteshbhai K Bhandari",
+    "Hiteshbhai C Bhandari",
+    "Dharmeshbhai k Bhandari"
+  ],
   establishedYear: 1952,
   panchayatOfficePhone: "+91 261 2861200",
   email: "office@ichhaporebhathapanch.org",

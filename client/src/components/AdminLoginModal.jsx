@@ -1,53 +1,57 @@
 import React, { useState } from 'react';
 import { useVillage } from '../context/VillageContext';
-import { ShieldCheck, X, Lock, KeyRound, ArrowRight, Building2 } from 'lucide-react';
+import { ShieldCheck, X, Lock, KeyRound } from 'lucide-react';
 
 export default function AdminLoginModal() {
   const { adminLoginModalOpen, setAdminLoginModalOpen, loginAsAdmin } = useVillage();
-  const [pin, setPin] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   if (!adminLoginModalOpen) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const success = loginAsAdmin(pin);
+    if (!password.trim()) {
+      setError('Please enter the administrative password.');
+      return;
+    }
+    const success = loginAsAdmin(password.trim());
     if (!success) {
-      setError('Invalid PIN code. Hint: Use 1234');
+      setError('Incorrect administrator password. Access denied.');
     } else {
       setError('');
-      setPin('');
+      setPassword('');
     }
   };
 
-  const handleQuickLogin = () => {
-    loginAsAdmin('1234');
+  const handleClose = () => {
+    setAdminLoginModalOpen(false);
     setError('');
-    setPin('');
+    setPassword('');
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-village-text/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-md w-full border border-village-border shadow-elevated p-6 space-y-5 animate-in zoom-in-95 duration-150">
+      <div className="bg-white rounded-2xl max-w-md w-full border border-village-border shadow-elevated p-6 space-y-5 animate-in zoom-in-95 duration-150">
         
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-11 h-11 rounded-2xl bg-village-primary text-white flex items-center justify-center shadow-soft">
-              <ShieldCheck className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-xl bg-village-primary text-white flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-black text-village-text">
-                Panchayat Staff Login
+              <h2 className="text-base font-bold text-village-text">
+                Administrator Login
               </h2>
               <p className="text-xs text-village-muted">
-                Administrative access for Pramukh, Committee & Panchayat officers
+                Ichhapore-Bhatha Bhandari Panch Administration
               </p>
             </div>
           </div>
           <button
-            onClick={() => setAdminLoginModalOpen(false)}
-            className="p-1.5 rounded-xl text-village-muted hover:text-village-text hover:bg-village-card"
+            onClick={handleClose}
+            className="p-1.5 rounded-lg text-village-muted hover:text-village-text hover:bg-village-card transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -56,51 +60,39 @@ export default function AdminLoginModal() {
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
           <p className="text-xs text-village-muted leading-relaxed">
-            Switch from public viewer mode to full administrative mode to add, update, and manage citizen and household records.
+            This section is protected. Please enter the authorized administrator password to manage citizen and household records.
           </p>
 
           <div>
-            <label className="block font-bold text-village-text text-xs uppercase tracking-wider mb-1.5">
-              Staff Security PIN
+            <label className="block font-semibold text-village-text text-xs uppercase tracking-wider mb-1.5">
+              Admin Password
             </label>
             <div className="relative">
               <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-village-muted" />
               <input
                 type="password"
-                value={pin}
+                value={password}
                 onChange={(e) => {
-                  setPin(e.target.value);
+                  setPassword(e.target.value);
                   setError('');
                 }}
-                placeholder="Enter 4-digit PIN (Demo: 1234)"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-village-border bg-village-card/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-village-primary text-sm font-mono tracking-widest text-center font-bold"
+                placeholder="Enter admin password"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-village-border bg-village-card/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-village-primary text-sm tracking-widest text-center font-bold"
                 autoFocus
               />
             </div>
-            {error ? (
-              <p className="text-red-500 text-xs mt-1 font-medium">{error}</p>
-            ) : (
-              <p className="text-village-muted text-[11px] mt-1">
-                Demo access code: <span className="font-mono font-bold text-village-primary-dark">1234</span>
-              </p>
+            {error && (
+              <p className="text-red-600 text-xs mt-1.5 font-medium">{error}</p>
             )}
           </div>
 
-          <div className="pt-2 flex flex-col gap-2">
+          <div className="pt-2">
             <button
               type="submit"
-              className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl bg-village-primary hover:bg-village-primary-dark text-white font-bold text-sm shadow-soft transition-all duration-200 active:scale-95"
+              className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl bg-village-primary hover:bg-village-primary-dark text-white font-bold text-sm shadow-soft transition-all duration-200 active:scale-95 cursor-pointer"
             >
               <KeyRound className="w-4 h-4" />
               <span>Unlock Admin Access</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleQuickLogin}
-              className="w-full flex items-center justify-center space-x-1.5 py-2 rounded-xl bg-village-secondary-light text-village-primary-darker hover:bg-village-secondary font-bold text-xs transition-colors border border-village-secondary"
-            >
-              <span>⚡ One-Click Demo Admin Login</span>
             </button>
           </div>
         </form>

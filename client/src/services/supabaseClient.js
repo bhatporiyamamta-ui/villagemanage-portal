@@ -2,13 +2,21 @@ import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_STORAGE_KEY = 'villagemanage_supabase_config';
 
+function sanitizeSupabaseUrl(rawUrl) {
+  if (!rawUrl) return '';
+  let url = rawUrl.trim();
+  url = url.replace(/\/rest\/v1\/?$/, '');
+  url = url.replace(/\/+$/, '');
+  return url;
+}
+
 /**
  * Retrieve active Supabase credentials from either:
  * 1. Environment variables (.env)
  * 2. In-browser Cloud Settings (localStorage)
  */
 export function getSupabaseConfig() {
-  const envUrl = import.meta.env.VITE_SUPABASE_URL?.trim() || '';
+  const envUrl = sanitizeSupabaseUrl(import.meta.env.VITE_SUPABASE_URL || '');
   const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() || '';
 
   if (envUrl && envKey) {
@@ -20,7 +28,7 @@ export function getSupabaseConfig() {
     if (stored) {
       const parsed = JSON.parse(stored);
       if (parsed.url && parsed.anonKey) {
-        return { url: parsed.url.trim(), anonKey: parsed.anonKey.trim(), source: 'local' };
+        return { url: sanitizeSupabaseUrl(parsed.url), anonKey: parsed.anonKey.trim(), source: 'local' };
       }
     }
   } catch (e) {

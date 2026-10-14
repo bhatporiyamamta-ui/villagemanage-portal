@@ -17,7 +17,11 @@ function sanitizeSupabaseUrl(rawUrl) {
  */
 export function getSupabaseConfig() {
   const envUrl = sanitizeSupabaseUrl(import.meta.env.VITE_SUPABASE_URL || '');
-  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() || '';
+  const envKey = (
+    import.meta.env.VITE_SUPABASE_ANON_KEY ||
+    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    ''
+  ).trim();
 
   if (envUrl && envKey) {
     return { url: envUrl, anonKey: envKey, source: 'env' };

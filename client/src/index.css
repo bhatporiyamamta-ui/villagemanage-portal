@@ -1,0 +1,50 @@
+@layer base {
+  * {
+    border-color: #e1ecd7;
+  }
+}
+
+/* Custom scrollbar matching village theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f4f8f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #b0e193;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7ab856;
+}
+
+/* Print styles for Villager ID cards and Household registers */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-card {
+    box-shadow: none !important;
+    border: 2px solid #7ab856 !important;
+    page-break-inside: avoid;
+  }
+}
+
+/* Pulse animation for emergency health indicator */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+
+.pulse-emergency {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}

@@ -1,0 +1,28 @@
+{
+  "villagers": [],
+  "households": [
+    {
+      "id": "HH-001",
+      "rationCardNumber": "RC-394510-001",
+      "street": "Mandir Faliya",
+      "headOfHouseholdId": "",
+      "ward": "Ward 1",
+      "houseNumber": "12"
+    }
+  ],
+  "villageMeta": {
+    "upPramukh": "Dineshbhai Bhandari",
+    "state": "Gujarat",
+    "pincode": "394510",
+    "pramukh": "Rameshbhai Bhandari",
+    "panchayatOfficePhone": "+91 261 2861200",
+    "treasurer": "Pravinbhai Bhandari",
+    "villageName": "Ichhapore-Bhatha Bhandari Panch",
+    "block": "Choryasi",
+    "address": "5PVX+G44, RJD Integrated Textile Park, Limla, Gujarat 394510",
+    "district": "Surat",
+    "mantri": "Sureshbhai Bhandari",
+    "email": "office@ichhaporebhathapanch.org"
+  },
+  "lastUpdated": "2026-10-14T05:54:29.144Z"
+}

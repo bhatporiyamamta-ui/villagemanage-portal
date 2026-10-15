@@ -8,6 +8,7 @@ export const ROUTES = {
   VILLAGERS: '/villagers',
   HOUSEHOLDS: '/households',
   ACHIEVEMENTS: '/hall-of-fame',
+  EVENTS: '/events',
   ANALYTICS: '/demographics',
   DONORS: '/donors'
 };
@@ -17,6 +18,7 @@ export const TAB_TO_PATH = {
   villagers: '/villagers',
   households: '/households',
   achievements: '/hall-of-fame',
+  events: '/events',
   analytics: '/demographics',
   donors: '/donors'
 };
@@ -38,6 +40,9 @@ export function pathToTab(pathname = '') {
   }
   if (clean === '/hall-of-fame' || clean === '/achievements' || clean === '/pride' || clean === '/awards') {
     return 'achievements';
+  }
+  if (clean === '/events' || clean === '/event' || clean === '/gatherings' || clean === '/festivals') {
+    return 'events';
   }
   if (clean === '/demographics' || clean === '/analytics' || clean === '/stats' || clean === '/census') {
     return 'analytics';
@@ -67,6 +72,8 @@ export function getPageTitle(tab, villageName = 'Ichhapore-Bhatha Bhandari Panch
       return `Households Registry | ${villageName}`;
     case 'achievements':
       return `Hall of Fame & Pride | ${villageName}`;
+    case 'events':
+      return `Village Events & Festivals | ${villageName}`;
     case 'analytics':
       return `Demographics & Analytics | ${villageName}`;
     case 'donors':

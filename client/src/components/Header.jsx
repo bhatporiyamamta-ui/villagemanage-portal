@@ -14,7 +14,7 @@ import {
   X, 
   ChevronDown, 
   Trophy, 
-  Building2, 
+  Calendar,
   FileSpreadsheet, 
   ShieldCheck, 
   Eye, 
@@ -25,6 +25,8 @@ import {
 } from 'lucide-react';
 import { exportVillagersToCsv, downloadJsonFile } from '../utils/helpers';
 import Link from './Link';
+import villageIcon from '../assets/Images/icon.jpeg';
+import { STATIC_EVENTS } from '../data/staticEvents';
 
 export default function Header() {
   const { 
@@ -58,6 +60,7 @@ export default function Header() {
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
     { id: 'villagers', label: isViewer ? 'Public Directory' : 'Villagers', icon: Users, count: villagers.length, path: '/villagers' },
     { id: 'households', label: 'Households', icon: Home, count: households.length, path: '/households' },
+    { id: 'events', label: 'Events', icon: Calendar, count: STATIC_EVENTS.length, path: '/events' },
     { id: 'achievements', label: 'Hall of Fame', icon: Trophy, count: totalAchievements, path: '/hall-of-fame' },
     { id: 'analytics', label: 'Demographics', icon: BarChart3, path: '/demographics' },
   ];
@@ -108,8 +111,8 @@ export default function Header() {
             to="/dashboard"
             className="flex items-center space-x-2 sm:space-x-3 cursor-pointer min-w-0 flex-1" 
           >
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-village-primary-dark via-village-primary to-village-accent flex items-center justify-center text-white shadow-soft shrink-0">
-              <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl overflow-hidden shadow-soft shrink-0 border border-village-primary/30 bg-white">
+              <img src={villageIcon} alt="Panchayat Icon" className="w-full h-full object-cover" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center space-x-1.5">

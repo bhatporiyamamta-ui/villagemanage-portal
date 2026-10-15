@@ -6,6 +6,7 @@ import VillagersDirectory from './components/VillagersDirectory';
 import FamilyManagement from './components/FamilyManagement';
 import Analytics from './components/Analytics';
 import Achievements from './components/Achievements';
+import Events from './components/Events';
 import VillagerFormModal from './components/VillagerFormModal';
 import HouseholdFormModal from './components/HouseholdFormModal';
 import VillagerIdCardModal from './components/VillagerIdCardModal';
@@ -31,6 +32,7 @@ function AppContent() {
         {activeTab === 'villagers' && <VillagersDirectory />}
         {activeTab === 'households' && <FamilyManagement />}
         {activeTab === 'achievements' && <Achievements />}
+        {activeTab === 'events' && <Events />}
         {activeTab === 'analytics' && <Analytics />}
         {activeTab === 'not-found' && <NotFound />}
       </main>

@@ -14,6 +14,7 @@ import {
   Trophy 
 } from 'lucide-react';
 import { calculateAge, formatDate, getInitials } from '../utils/helpers';
+import villageIcon from '../assets/Images/icon.jpeg';
 
 export default function VillagerIdCardModal() {
   const { idCardModalVillager, setIdCardModalVillager, villageMeta, households } = useVillage();
@@ -61,8 +62,8 @@ export default function VillagerIdCardModal() {
           {/* Card Header Strip */}
           <div className="flex items-center justify-between border-b-2 border-village-primary/30 pb-3 mb-4">
             <div className="flex items-center space-x-2.5">
-              <div className="w-10 h-10 rounded-xl bg-village-primary text-white flex items-center justify-center font-bold">
-                <Building2 className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl overflow-hidden border border-village-primary/40 bg-white shadow-2xs flex items-center justify-center shrink-0">
+                <img src={villageIcon} alt="Panchayat Emblem" className="w-full h-full object-cover" />
               </div>
               <div>
                 <div className="text-[10px] uppercase font-extrabold tracking-wider text-village-primary-darker">

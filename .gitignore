@@ -18,6 +18,8 @@ client/.env.local
 # Archives & Temporary
 VillageTemplate.zip
 template_extracted/
+*.mp4
+*.mov
 
 # Logs
 *.log

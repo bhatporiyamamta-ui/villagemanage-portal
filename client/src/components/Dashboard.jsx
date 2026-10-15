@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { calculateAge, getInitials, exportVillagersToCsv } from '../utils/helpers';
 import Link from './Link';
+import { STATIC_EVENTS } from '../data/staticEvents';
 
 export default function Dashboard() {
   const { 
@@ -543,6 +544,66 @@ export default function Dashboard() {
             })}
           </div>
         )}
+      </div>
+
+      {/* Village Events & Gatherings Showcase */}
+      <div className="bg-white p-6 rounded-2xl border border-village-border shadow-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-base font-bold text-village-text flex items-center space-x-2">
+              <Calendar className="w-4 h-4 text-village-primary" />
+              <span>Village Events &amp; Festivals (ગ્રામ્ય ઉત્સવો અને આયોજન)</span>
+            </h2>
+            <p className="text-xs text-village-muted mt-0.5">
+              Official community gatherings, annual festivals, and public assemblies
+            </p>
+          </div>
+          <Link
+            to="/events"
+            className="text-xs font-bold text-village-primary-dark hover:underline flex items-center space-x-1 cursor-pointer"
+          >
+            <span>View All Events ({STATIC_EVENTS.length})</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+          {STATIC_EVENTS.slice(0, 3).map((evt) => (
+            <Link
+              key={evt.id}
+              to="/events"
+              className="group block rounded-xl border border-village-border overflow-hidden hover:border-village-primary hover:shadow-soft transition-all duration-200"
+            >
+              <div className="relative h-36 w-full overflow-hidden bg-village-card">
+                <img
+                  src={evt.image}
+                  alt={evt.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+                <div className="absolute top-2 left-2">
+                  <span className={`px-2 py-0.5 rounded-md text-[9px] font-extrabold uppercase tracking-wider ${
+                    evt.status === 'Upcoming' ? 'bg-emerald-600 text-white' : 'bg-zinc-800/80 text-zinc-200'
+                  }`}>
+                    {evt.status}
+                  </span>
+                </div>
+              </div>
+              <div className="p-3 space-y-1.5">
+                <div className="text-[10px] font-bold text-village-primary-dark truncate">
+                  {evt.category}
+                </div>
+                <h3 className="font-bold text-xs sm:text-sm text-village-text group-hover:text-village-primary-dark transition-colors line-clamp-1">
+                  {evt.title}
+                </h3>
+                <div className="text-[11px] text-village-muted flex items-center space-x-1">
+                  <Calendar className="w-3 h-3 text-village-primary shrink-0" />
+                  <span className="truncate">{evt.date}</span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Panch Leadership & Village Map Location */}

@@ -1,5 +1,33 @@
 {
-  "villagers": [],
+  "villagers": [
+    {
+      "id": "VIL-001",
+      "name": "Maheshbhai Iswarbhai Bhatporiya",
+      "dob": "1967-06-03",
+      "gender": "Male",
+      "phone": "9979265432",
+      "bloodGroup": "O+",
+      "occupation": "Other / Self-Employed",
+      "education": "Secondary (High School / 10th)",
+      "householdId": "HH-001",
+      "relationship": "Member",
+      "healthData": {
+        "conditions": "None",
+        "vaccinations": [
+          "Covid-19 (Dose 1 & 2)"
+        ],
+        "hasDisability": false,
+        "emergencyContact": ""
+      },
+      "ongoingEducation": {
+        "status": "Currently Studying",
+        "isEnrolled": false,
+        "gradeOrYear": "",
+        "institution": ""
+      },
+      "achievements": []
+    }
+  ],
   "households": [
     {
       "id": "HH-001",
@@ -26,5 +54,5 @@
     "email": "office@ichhaporebhathapanch.org",
     "mapUrl": "https://www.google.com/maps?q=21.193250,72.747722"
   },
-  "lastUpdated": "2026-10-14T10:42:51.346Z"
+  "lastUpdated": "2026-10-15T07:48:49.507Z"
 }

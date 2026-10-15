@@ -1,12 +1,12 @@
 import React from 'react';
 import { useVillage } from '../context/VillageContext';
 import { 
-  Building2, 
   MapPin, 
   ExternalLink, 
   PhoneCall, 
   Mail
 } from 'lucide-react';
+import villageIcon from '../assets/Images/icon.jpeg';
 
 export default function Footer() {
   const { villageMeta } = useVillage();
@@ -22,8 +22,8 @@ export default function Footer() {
           {/* Organization Details & Contacts */}
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-village-primary-dark via-village-primary to-village-accent flex items-center justify-center text-white shadow-soft shrink-0">
-                <Building2 className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-xl overflow-hidden shadow-soft shrink-0 border border-village-primary/30 bg-white">
+                <img src={villageIcon} alt="Panchayat Icon" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="font-extrabold text-base sm:text-lg text-village-text tracking-tight">

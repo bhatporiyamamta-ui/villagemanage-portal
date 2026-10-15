@@ -5,7 +5,6 @@ import {
   User, 
   Calendar, 
   Phone, 
-  Heart, 
   GraduationCap, 
   Briefcase, 
   Home, 
@@ -24,8 +23,6 @@ import {
   BLOOD_GROUPS, 
   GENDERS, 
   RELATIONSHIPS, 
-  COMMON_VACCINES, 
-  COMMON_CONDITIONS,
   ACHIEVEMENT_CATEGORIES,
   ACHIEVEMENT_LEVELS
 } from '../data/constants';
@@ -71,7 +68,7 @@ export default function VillagerFormModal() {
     achievements: []
   });
 
-  const [step, setStep] = useState(1); // 1: Personal, 2: Household, 3: Education & Work, 4: Health
+  const [step, setStep] = useState(1); // 1: Personal, 2: Household, 3: Education & Job
   const [errors, setErrors] = useState({});
 
   const [showAddAchievement, setShowAddAchievement] = useState(false);
@@ -167,17 +164,6 @@ export default function VillagerFormModal() {
 
   const currentAge = calculateAge(formData.dob);
 
-  const handleVaccineToggle = (vac) => {
-    const current = formData.healthData?.vaccinations || [];
-    const updated = current.includes(vac)
-      ? current.filter((v) => v !== vac)
-      : [...current, vac];
-    setFormData((prev) => ({
-      ...prev,
-      healthData: { ...prev.healthData, vaccinations: updated }
-    }));
-  };
-
   const validateStep = (currentStep) => {
     const errs = {};
     if (currentStep === 1) {
@@ -193,7 +179,7 @@ export default function VillagerFormModal() {
 
   const handleNext = () => {
     if (validateStep(step)) {
-      setStep((prev) => Math.min(prev + 1, 4));
+      setStep((prev) => Math.min(prev + 1, 3));
     }
   };
 
@@ -227,8 +213,7 @@ export default function VillagerFormModal() {
   const stepLabels = [
     { num: 1, label: 'Personal', icon: User },
     { num: 2, label: 'Household', icon: Home },
-    { num: 3, label: 'Education & Job', icon: GraduationCap },
-    { num: 4, label: 'Health', icon: Heart }
+    { num: 3, label: 'Education & Job', icon: GraduationCap }
   ];
 
   return (
@@ -246,7 +231,7 @@ export default function VillagerFormModal() {
                 {editingVillager ? `Edit Citizen (${editingVillager.id})` : 'New Villager Registration'}
               </h2>
               <p className="text-xs text-village-muted">
-                Step {step} of 4 • {stepLabels[step - 1].label}
+                Step {step} of 3 • {stepLabels[step - 1].label}
               </p>
             </div>
           </div>
@@ -788,80 +773,6 @@ export default function VillagerFormModal() {
             </div>
           )}
 
-          {/* STEP 4: Health Data */}
-          {step === 4 && (
-            <div className="space-y-4 animate-in fade-in duration-150">
-              <div>
-                <label className="block font-bold text-village-text mb-1.5">
-                  Medical Notes / Chronic Conditions
-                </label>
-                <select
-                  value={formData.healthData?.conditions || 'None'}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      healthData: { ...formData.healthData, conditions: e.target.value }
-                    })
-                  }
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-village-border bg-white text-sm font-medium"
-                >
-                  {COMMON_CONDITIONS.map((cond) => (
-                    <option key={cond} value={cond}>{cond}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Vaccines checklist */}
-              <div>
-                <label className="block font-bold text-village-text mb-1.5">
-                  Vaccinations Checklist
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 rounded-2xl border border-village-border bg-village-card/30">
-                  {COMMON_VACCINES.map((vac) => {
-                    const isChecked = (formData.healthData?.vaccinations || []).includes(vac);
-                    return (
-                      <label
-                        key={vac}
-                        className={`flex items-center space-x-2 p-2 rounded-xl border text-xs cursor-pointer transition-colors ${
-                          isChecked
-                            ? 'bg-village-secondary-light/70 border-village-secondary text-village-primary-darker font-bold'
-                            : 'bg-white border-village-border text-village-text'
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => handleVaccineToggle(vac)}
-                          className="h-4 w-4 rounded text-village-primary focus:ring-village-primary"
-                        />
-                        <span>{vac}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Emergency Contact */}
-              <div>
-                <label className="block font-bold text-village-text mb-1.5">
-                  Emergency Contact (Name & Mobile)
-                </label>
-                <input
-                  type="text"
-                  value={formData.healthData?.emergencyContact || ''}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      healthData: { ...formData.healthData, emergencyContact: e.target.value }
-                    })
-                  }
-                  placeholder="e.g., 9825143210 (Spouse / Parent)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-village-border bg-white text-sm"
-                />
-              </div>
-            </div>
-          )}
-
           {/* Stepper Navigation Buttons */}
           <div className="pt-4 border-t border-village-border flex items-center justify-between">
             {step > 1 ? (
@@ -892,7 +803,7 @@ export default function VillagerFormModal() {
                 <span>{editingVillager ? 'Save Changes' : 'Save & Register'}</span>
               </button>
 
-              {step < 4 && (
+              {step < 3 && (
                 <button
                   type="button"
                   onClick={handleNext}
